@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ael-hadj <ael-hadj@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/04 19:59:27 by ael-hadj          #+#    #+#             */
+/*   Updated: 2025/02/04 19:59:31 by ael-hadj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft/libft.h"
 #include "so_long.h"
 
 int	validate_file_extension(char *filename)
@@ -12,23 +25,45 @@ int	validate_file_extension(char *filename)
 	else if (*(ext - 1) == '/')
 		return (0);
 	else if (ft_strcmp(ext, ".ber") != 0)
-		return(0);
+		return (0);
 	return (1);
 }
 
-/*remove the printf for a valid map and just run it */
-
 int	main(int ac, char **av)
 {
-	int	fd;
-	char	*extension;
+	int		fd;
+	char		*line;
+	int		gnl_flag;
+	size_t		line_length;
+	int		lines_num;
 
+	gnl_flag = 0;
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDWR);
 		if (fd == -1 || !validate_file_extension(av[1]))
-			return (ft_printf("must provide a map!"));
-		printf("validated file extension\n");
+			return (ft_printf("must provide a map!"), 0);
+		lines_num = 0;
+		while ((line = get_next_line(fd)) != NULL)
+		{
+			if (gnl_flag == 0)
+			{
+				lines_num++;
+				line_length = ft_strlen(line);
+				if (line_length <= 3)
+					return (ft_printf("map is invalid cause of the width"), 0);
+				gnl_flag = 1;
+			}
+			else
+			{
+				if (line_length != ft_strlen(line))
+					return (ft_printf("line is different length\n"), 0);
+				lines_num++;
+			}
+		}
+		if (lines_num < 3)
+			return (ft_printf("map is invalid cause of lines num"), 0);
+		ft_printf("line is the same\n");
 	}
 	else
 		ft_printf("Error, must provide a map!");
