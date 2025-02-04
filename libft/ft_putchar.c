@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-hadj <ael-hadj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:01:19 by ael-hadj          #+#    #+#             */
-/*   Updated: 2025/02/03 16:02:31 by ael-hadj         ###   ########.fr       */
+/*   Created: 2025/02/03 17:20:54 by ael-hadj          #+#    #+#             */
+/*   Updated: 2025/02/03 17:20:55 by ael-hadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "/usr/include/minilibx-linux/mlx.h"
-# include <errno.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-
-#endif
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}

@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-hadj <ael-hadj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:01:19 by ael-hadj          #+#    #+#             */
-/*   Updated: 2025/02/03 16:02:31 by ael-hadj         ###   ########.fr       */
+/*   Created: 2025/02/03 17:22:23 by ael-hadj          #+#    #+#             */
+/*   Updated: 2025/02/03 17:22:25 by ael-hadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "/usr/include/minilibx-linux/mlx.h"
-# include <errno.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include "libft/libft.h"
+int	ft_putunsigned(unsigned int n)
+{
+	int	count;
 
-#endif
+	count = 0;
+	if (n > 9)
+		count += ft_putunsigned(n / 10);
+	count += ft_putchar((n % 10) + 48);
+	return (count);
+}

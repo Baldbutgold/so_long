@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_put_pointer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-hadj <ael-hadj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:01:19 by ael-hadj          #+#    #+#             */
-/*   Updated: 2025/02/03 16:02:31 by ael-hadj         ###   ########.fr       */
+/*   Created: 2025/02/04 10:36:13 by ael-hadj          #+#    #+#             */
+/*   Updated: 2025/02/04 10:36:13 by ael-hadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "/usr/include/minilibx-linux/mlx.h"
-# include <errno.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include "libft/libft.h"
+int	ft_put_pointer(unsigned long pointer)
+{
+	int	count;
 
-#endif
+	if (!pointer)
+		return (ft_putstr("(nil)"));
+	count = 2;
+	ft_putstr("0x");
+	count += ft_treat_pointer(pointer);
+	return (count);
+}

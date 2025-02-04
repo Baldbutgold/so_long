@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-hadj <ael-hadj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 16:01:19 by ael-hadj          #+#    #+#             */
-/*   Updated: 2025/02/03 16:02:31 by ael-hadj         ###   ########.fr       */
+/*   Created: 2025/02/03 17:20:47 by ael-hadj          #+#    #+#             */
+/*   Updated: 2025/02/03 17:20:50 by ael-hadj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include "/usr/include/minilibx-linux/mlx.h"
-# include <errno.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include "libft/libft.h"
+int	ft_putstr(char *s)
+{
+	int	i;
 
-#endif
+	if (!s)
+		return (ft_putstr("(null)"));
+	i = 0;
+	while (s[i])
+		ft_putchar(s[i++]);
+	return (i);
+}
