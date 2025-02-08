@@ -30,8 +30,17 @@ int	validate_file_extension(char *filename)
 	return (1);
 }
 
-void free_grid(char **grid, int size)
+void	free_grid(char **grid, int i)
 {
+	if (!grid)
+		return ;
+	while (i >= 0)
+	{
+		if (grid[i])
+			free(grid[i]);
+		i--;
+	}
+	free(grid);
 	return;
 }
 
@@ -66,12 +75,11 @@ int	main(int ac, char **av)
 	{
 		fd = open(av[1], O_RDWR);
 		lines_num = 0;
+		i = 0;
 		if (init_program(av[1], fd, &lines_num) == 0)
 			return (1);
-		printf("lines : %d\n", lines_num);
-		fd = open(av[1], O_RDWR);
 		grid = malloc((lines_num + 1) * sizeof(char *));
-		i = 0;
+		fd = open(av[1], O_RDWR);
 		while (i < lines_num)
 		{
 			line = get_next_line(fd);
@@ -80,13 +88,15 @@ int	main(int ac, char **av)
 				line_len--;
 			grid[i] = malloc((line_len + 1) * sizeof(char));
 			ft_strlcpy(grid[i], line, line_len + 1);
-			ft_printf("i is %d on grid %s\n", i, grid[i]);
 			free(line);
 			i++;
 		}
 		grid[i] = malloc(1);
 		grid[i][0] = 0;
+		free_grid(grid, i);
 	}
 	else
 		ft_printf("Error, must provide a map!");
+	close(fd);
+	return (0);
 }
