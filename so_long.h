@@ -20,12 +20,9 @@
 # include "libft/libft.h"
 
 typedef struct map{
-	char	**arr;
+	char	**grid;
 	int	height;
 	int	width;
-	int	player_x;
-	int	player_y;
-	int	collectibles;
 } t_map; 
 
 #endif

@@ -32,12 +32,10 @@ int	validate_file_extension(char *filename)
 int	main(int ac, char **av)
 {
 	int		fd;
-	char		*line;
-	int		gnl_flag;
-	size_t		line_length;
-	int		lines_num;
+	char	*line;
+	int	lines_num;
+	char	**grid;
 
-	gnl_flag = 0;
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDWR);
@@ -46,24 +44,13 @@ int	main(int ac, char **av)
 		lines_num = 0;
 		while ((line = get_next_line(fd)) != NULL)
 		{
-			if (gnl_flag == 0)
-			{
-				lines_num++;
-				line_length = ft_strlen(line);
-				if (line_length <= 3)
-					return (ft_printf("map is invalid cause of the width"), 0);
-				gnl_flag = 1;
-			}
-			else
-			{
-				if (line_length != ft_strlen(line))
-					return (ft_printf("line is different length\n"), 0);
-				lines_num++;
-			}
+			lines_num++;
+			free(line);
 		}
-		if (lines_num < 3)
-			return (ft_printf("map is invalid cause of lines num"), 0);
-		ft_printf("line is the same\n");
+		ft_printf("%d", lines_num + 1);
+		grid = malloc(lines_num + 1);
+		line = get_next_line(fd);
+		ft_printf("%s", line);
 	}
 	else
 		ft_printf("Error, must provide a map!");
