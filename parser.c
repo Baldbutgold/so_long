@@ -35,6 +35,7 @@ int	main(int ac, char **av)
 	char	*line;
 	int	lines_num;
 	char	**grid;
+	int	i;
 
 	if (ac == 2)
 	{
@@ -47,10 +48,22 @@ int	main(int ac, char **av)
 			lines_num++;
 			free(line);
 		}
-		ft_printf("%d", lines_num + 1);
+		printf("lines are %d\n", lines_num);
+		close(fd);
+		fd = open(av[1], O_RDWR);
 		grid = malloc(lines_num + 1);
-		line = get_next_line(fd);
-		ft_printf("%s", line);
+		i = 0;
+		while (i < lines_num)
+		{
+			line = get_next_line(fd);
+			grid[i] = malloc(ft_strlen(line));
+			ft_strlcpy(grid[i], line, ft_strlen(line) - 1);
+			printf("i is %d on grid %s\n", i, grid[i]);
+			free(line);
+			i++;
+		}
+		grid[i] = malloc(1);
+		grid[i][0] = 0;
 	}
 	else
 		ft_printf("Error, must provide a map!");
