@@ -124,14 +124,18 @@ int	main(int ac, char **av)
 		grid = map2grid(av[1], lines_num);
 		if (!grid)
 			return (ft_printf("There is an error with the map"), 1);
+		int	j = 0;
+		while (grid[j] != 0)
+			ft_printf("%s\n", grid[j++]);
+		free_grid(grid, j);
 	}
 	else
 		ft_printf("Error, must provide a map!");
 	return (0);
 }
 
-/*test if grid has something and free*/
-/*int	j = 0;*/
-/*while (grid[j] != 0)*/
-/*	ft_printf("%s\n", grid[j++]);*/
-/*free_grid(grid, j);*/
+		/*test if grid has something and free*/
+		/*int	j = 0;*/
+		/*while (grid[j] != 0)*/
+		/*	ft_printf("%s\n", grid[j++]);*/
+		/*free_grid(grid, j);*/
