@@ -13,6 +13,7 @@
 #include "libft/libft.h"
 #include "so_long.h"
 
+
 int	validate_file_extension(char *filename)
 {
 	char	*ext;
@@ -29,36 +30,57 @@ int	validate_file_extension(char *filename)
 	return (1);
 }
 
-int	main(int ac, char **av)
+void free_grid(char **grid, int size)
 {
-	int		fd;
-	char	*line;
-	int	lines_num;
-	char	**grid;
-	int	i;
+	return;
+}
 
-	if (ac == 2)
+int	init_program(char *filename, int fd)
+{
+	int	lines_num;
+	char	*line;
+
+	if (fd == -1 || !validate_file_extension(filename))
+		return (ft_printf("Invalid File\n"), 0);
+	else
 	{
-		fd = open(av[1], O_RDWR);
-		if (fd == -1 || !validate_file_extension(av[1]))
-			return (ft_printf("must provide a map!"), 0);
 		lines_num = 0;
 		while ((line = get_next_line(fd)) != NULL)
 		{
 			lines_num++;
 			free(line);
 		}
-		printf("lines are %d\n", lines_num);
 		close(fd);
+	}
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	int		fd;
+	int	lines_num;
+	char	**grid;
+	int	i;
+	size_t	line_len;
+	char	*line;
+
+	if (ac == 2)
+	{
 		fd = open(av[1], O_RDWR);
-		grid = malloc(lines_num + 1);
+		if (init_program(av[1], fd) == 0)
+			return (1);
+		fd = open(av[1], O_RDWR);
+		grid = malloc((lines_num + 1) * sizeof(char *));
 		i = 0;
 		while (i < lines_num)
 		{
 			line = get_next_line(fd);
-			grid[i] = malloc(ft_strlen(line));
-			ft_strlcpy(grid[i], line, ft_strlen(line) - 1);
-			printf("i is %d on grid %s\n", i, grid[i]);
+			line_len = ft_strlen(line);
+			if (line[line_len - 1] == '\n')
+				line_len--;
+			grid[i] = malloc((line_len + 1) * sizeof(char));
+			ft_strlcpy(grid[i], line, line_len + 1);
+			ft_printf("i is %d on grid %s\n", i, grid[i]);
 			free(line);
 			i++;
 		}
