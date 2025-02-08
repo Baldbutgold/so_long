@@ -35,19 +35,17 @@ void free_grid(char **grid, int size)
 	return;
 }
 
-int	init_program(char *filename, int fd)
+int	init_program(char *filename, int fd, int *lines_num)
 {
-	int	lines_num;
 	char	*line;
 
 	if (fd == -1 || !validate_file_extension(filename))
 		return (ft_printf("Invalid File\n"), 0);
 	else
 	{
-		lines_num = 0;
 		while ((line = get_next_line(fd)) != NULL)
 		{
-			lines_num++;
+			*lines_num = *lines_num + 1;
 			free(line);
 		}
 		close(fd);
@@ -67,8 +65,10 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDWR);
-		if (init_program(av[1], fd) == 0)
+		lines_num = 0;
+		if (init_program(av[1], fd, &lines_num) == 0)
 			return (1);
+		printf("lines : %d\n", lines_num);
 		fd = open(av[1], O_RDWR);
 		grid = malloc((lines_num + 1) * sizeof(char *));
 		i = 0;
