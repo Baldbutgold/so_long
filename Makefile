@@ -4,7 +4,7 @@ SERVER_SRC = parser.c
 
 CC = cc
 RM = rm -f
-#CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 
 #--------------------- RULES --------------------#
