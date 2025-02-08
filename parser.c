@@ -36,8 +36,7 @@ void	free_grid(char **grid, int i)
 		return ;
 	while (i >= 0)
 	{
-		if (grid[i])
-			free(grid[i]);
+		free(grid[i]);
 		i--;
 	}
 	free(grid);
@@ -79,20 +78,24 @@ int	main(int ac, char **av)
 		if (init_program(av[1], fd, &lines_num) == 0)
 			return (1);
 		grid = malloc((lines_num + 1) * sizeof(char *));
+		if (!grid)
+			return (close(fd), 1);
 		fd = open(av[1], O_RDWR);
-		while (i < lines_num)
+		/*while (i < lines_num)*/
+		line = get_next_line(fd);
+		while (line != NULL)
 		{
-			line = get_next_line(fd);
 			line_len = ft_strlen(line);
 			if (line[line_len - 1] == '\n')
 				line_len--;
-			grid[i] = malloc((line_len + 1) * sizeof(char));
+			if (!(grid[i] = malloc((line_len + 1))))
+				return (free(line), free_grid(grid, i), 1);
 			ft_strlcpy(grid[i], line, line_len + 1);
 			free(line);
+			line = get_next_line(fd);
 			i++;
 		}
-		grid[i] = malloc(1);
-		grid[i][0] = 0;
+		grid[i] = 0;
 		free_grid(grid, i);
 	}
 	else
