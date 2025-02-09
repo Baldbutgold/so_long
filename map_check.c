@@ -47,7 +47,7 @@ int	check_map(char **grid, int height, size_t *width, int *item)
 		i++;
 	}
 	ft_printf("player %d exit %d item %d\n", player, exit, *item);
-	if (exit > 1 || player > 1)
+	if (exit > 1 || exit == 0 || player > 1 || player == 0 || item == 0)
 		return (ft_printf("map is not valid\n"), FALSE);
 	return (TRUE);
 }
