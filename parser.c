@@ -13,22 +13,6 @@
 #include "libft/libft.h"
 #include "so_long.h"
 
-/*int	validate_file_extension(char *filename)*/
-/*{*/
-/*	char	*ext;*/
-/**/
-/*	ext = ft_strrchr(filename, '.');*/
-/*	if (!ext)*/
-/*		return (0);*/
-/*	if (ext == filename)*/
-/*		return (0);*/
-/*	else if (*(ext - 1) == '/')*/
-/*		return (0);*/
-/*	else if (ft_strcmp(ext, ".ber") != 0)*/
-/*		return (0);*/
-/*	return (1);*/
-/*}*/
-
 /*freeing the grid by reversing back*/
 
 void	free_grid(char **grid, int i)
@@ -46,7 +30,7 @@ void	free_grid(char **grid, int i)
 
 /* Validating file extension and getting the number of lines with gnl*/
 
-int	init_program(char *filename, int *lines_num)
+int	validate_file(char *filename, int *lines_num)
 {
 	char	*line;
 	char	*ext;
@@ -56,7 +40,7 @@ int	init_program(char *filename, int *lines_num)
 	ext = ft_strrchr(filename, '.');
 	if (fd < 0 || !ext || ext == filename
 		|| *(ext - 1) == '/' || ft_strcmp(ext, ".ber") != 0)
-		return (ft_printf("Invalid File\n"), 0);
+		return (ft_printf("Invalid File\n"), FALSE);
 	else
 	{
 		line = get_next_line(fd);
@@ -68,7 +52,7 @@ int	init_program(char *filename, int *lines_num)
 		}
 		close(fd);
 	}
-	return (1);
+	return (TRUE);
 }
 
 int	process_line(char **grid, char *line, int i)
@@ -80,11 +64,12 @@ int	process_line(char **grid, char *line, int i)
 		line_len = line_len - 1;
 	grid[i] = malloc(line_len + 1);
 	if (!grid[i])
-		return (free(line), free_grid(grid, i), 0);
+		return (free(line), free_grid(grid, i), FALSE);
 	ft_strlcpy(grid[i], line, line_len + 1);
-	return (1);
+	return (TRUE);
 }
 
+/*saving the processed line to a grid that will be later on verified*/
 char	**map2grid(char *filename, int lines_num)
 {
 	int		fd;
@@ -111,31 +96,16 @@ char	**map2grid(char *filename, int lines_num)
 	return (grid);
 }
 
-int	main(int ac, char **av)
+char	**init_program(char *filename)
 {
 	char	**grid;
 	int		lines_num;
 
-	if (ac == 2)
-	{
-		lines_num = 0;
-		if (init_program(av[1], &lines_num) == 0)
-			return (1);
-		grid = map2grid(av[1], lines_num);
-		if (!grid)
-			return (ft_printf("There is an error with the map"), 1);
-		int	j = 0;
-		while (grid[j] != 0)
-			ft_printf("%s\n", grid[j++]);
-		free_grid(grid, j);
-	}
-	else
-		ft_printf("Error, must provide a map!");
-	return (0);
+	lines_num = 0;
+	if (validate_file(filename, &lines_num) == 0)
+		return (NULL);
+	grid = map2grid(filename, lines_num);
+	if (!grid)
+		return (ft_printf("Something went wrong\n"), NULL);
+	return (grid);
 }
-
-		/*test if grid has something and free*/
-		/*int	j = 0;*/
-		/*while (grid[j] != 0)*/
-		/*	ft_printf("%s\n", grid[j++]);*/
-		/*free_grid(grid, j);*/

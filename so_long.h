@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 /*# include "/usr/include/minilibx-linux/mlx.h"*/
+
 # include "mlx/mlx.h"
 # include <errno.h>
 # include <stdio.h>
@@ -21,6 +22,8 @@
 # include "libft/libft.h"
 # include <stdlib.h>
 
+# define TRUE 1
+# define FALSE 0
 # define TILE_SIZE 64
 # define PLAYER "assets/player.xpm"
 # define FLOOR "assets/floor.xpm"
@@ -33,6 +36,16 @@ typedef struct map{
 	int	width;
 } t_map; 
 
+/*FUNCTION PROTOTYPES*/
+
+void	free_grid(char **grid, int i);
+int	validate_file(char *filename, int *lines_num);
+int	process_line(char **grid, char *line, int i);
+char	**map2grid(char *filename, int lines_num);
+char	**init_program(char *filename);
+
+#endif
+
 /*typedef struct s_data*/
 /*{*/
 /*	void		*mlx_ptr; // MLX pointer*/
@@ -41,4 +54,3 @@ typedef struct map{
 /*	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)*/
 /*}	t_data;*/
 /**/
-#endif
