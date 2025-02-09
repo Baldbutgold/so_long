@@ -30,7 +30,7 @@ void	free_grid(char **grid, int i)
 
 /* Validating file extension and getting the number of lines with gnl*/
 
-int	validate_file(char *filename, int *lines_num)
+int	validate_file(char *filename, int *height)
 {
 	char	*line;
 	char	*ext;
@@ -46,7 +46,7 @@ int	validate_file(char *filename, int *lines_num)
 		line = get_next_line(fd);
 		while (line != NULL)
 		{
-			*lines_num = *lines_num + 1;
+			*height = *height + 1;
 			free(line);
 			line = get_next_line(fd);
 		}
@@ -70,14 +70,14 @@ int	process_line(char **grid, char *line, int i)
 }
 
 /*saving the processed line to a grid that will be later on verified*/
-char	**map2grid(char *filename, int lines_num)
+char	**map2grid(char *filename, int height)
 {
 	int		fd;
 	int		i;
 	char	**grid;
 	char	*line;
 
-	grid = malloc((lines_num + 1) * sizeof(char *));
+	grid = malloc((height + 1) * sizeof(char *));
 	if (!grid)
 		return (NULL);
 	i = 0;
@@ -99,13 +99,17 @@ char	**map2grid(char *filename, int lines_num)
 char	**init_program(char *filename)
 {
 	char	**grid;
-	int		lines_num;
+	int		height;
 
-	lines_num = 0;
-	if (validate_file(filename, &lines_num) == 0)
+	height = 0;
+	if (!validate_file(filename, &height))
 		return (NULL);
-	grid = map2grid(filename, lines_num);
+	if (height <= 2)
+		return (ft_printf("Invalid map, too small\n"), NULL);
+	grid = map2grid(filename, height);
 	if (!grid)
 		return (ft_printf("Something went wrong\n"), NULL);
+	if (!check_map(grid, height))
+		return (NULL);
 	return (grid);
 }
