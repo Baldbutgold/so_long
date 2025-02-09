@@ -99,17 +99,21 @@ char	**map2grid(char *filename, int height)
 char	**init_program(char *filename)
 {
 	char	**grid;
+	size_t	width;
+	int	item;
 	int		height;
 
 	height = 0;
+	item = 0;
+	width = 0;
 	if (!validate_file(filename, &height))
 		return (NULL);
 	if (height <= 2)
 		return (ft_printf("Invalid map, too small\n"), NULL);
 	grid = map2grid(filename, height);
 	if (!grid)
-		return (ft_printf("Something went wrong\n"), NULL);
-	if (!check_map(grid, height))
-		return (NULL);
+		return (free_grid(grid, height - 1), ft_printf("Something went wrong\n"), NULL);
+	if (!check_map(grid, height, &width, &item))
+		return (free_grid(grid, height - 1), NULL);
 	return (grid);
 }

@@ -15,6 +15,12 @@
 
 /*# include "/usr/include/minilibx-linux/mlx.h"*/
 
+/*0 for an empty space,*/
+/*1 for a wall,*/
+/*C for a collectible,*/
+/*E for a map exit,*/
+/*P for the player’s starting position.*/
+
 # include "mlx/mlx.h"
 # include <errno.h>
 # include <stdio.h>
@@ -43,7 +49,7 @@ int	validate_file(char *filename, int *lines_num);
 int	process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
 char	**init_program(char *filename);
-int	check_map(char **grid, int height);
+int	check_map(char **grid, int height, size_t *width, int *item);
 
 #endif
 

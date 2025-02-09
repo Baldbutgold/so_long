@@ -5,34 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-hadj <ael-hadj@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 10:35:35 by ael-hadj          #+#    #+#             */
-/*   Updated: 2025/02/09 10:42:31 by ael-hadj         ###   ########.fr       */ /*                                                                            */ /* ************************************************************************** */
+/*   Created: 2025/02/09 11:20:15 by ael-hadj          #+#    #+#             */
+/*   Updated: 2025/02/09 11:26:06 by ael-hadj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft/libft.h"
 
-int	check_map(char **grid, int height)
+int	check_map(char **grid, int height, size_t *width, int *item)
 {
-	size_t	width;
 	int	i;
 	int	j;
+	int	exit;
+	int	player;
 
 	i = 0;
-	j = 0;
-	width = ft_strlen(grid[0]);
-	// here there might some problems |||| check the -1 for width and height
-	while (grid[0][j] == '1' && grid[height - 1][j] == '1')
-		j++;
-	if (j != width)
-		return (ft_printf("map is not valid\n"), FALSE);
+	exit = 0;
+	player = 0;
+	*width = ft_strlen(grid[0]);
 	while (grid[i])
 	{
-		if (ft_strlen(grid[i]) != width)
+		j = 0;
+		if (ft_strlen(grid[i]) != *width
+			|| (grid[i][0] != '1' && grid[i][*width] != '1'))
 			return (ft_printf("map invalid\n"), FALSE);
-		if (grid[i][0] != '1' && grid[i][width] != '1')
-			return (ft_printf("map is not valid\n"), FALSE);
+		while(grid[i][j])
+		{
+			if (!ft_strchr("01EPC", grid[i][j]))
+				return (ft_printf("invalid character\n"), FALSE);
+			else if (grid[i][j] == 'C')
+				*item = *item + 1;
+			else if (grid[i][j] == 'P')
+				player = player + 1;
+			else if (grid[i][j] == 'E')
+				exit = exit + 1;
+			if (grid[0][j] != '1' && grid[height - 1][j] != '1')
+				return (ft_printf("map is not valid\n"), FALSE);
+			j++;
+		}
 		i++;
 	}
+	ft_printf("player %d exit %d item %d\n", player, exit, *item);
+	if (exit > 1 || player > 1)
+		return (ft_printf("map is not valid\n"), FALSE);
 	return (TRUE);
 }
 
