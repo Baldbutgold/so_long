@@ -13,10 +13,39 @@
 #include "so_long.h"
 #include "libft/libft.h"
 
-/*int	checking_conditions()*/
-/*{*/
-/**/
-/*}*/
+int	char_check(char **grid, t_map *map, int i, int j)
+{
+	if (!ft_strchr("01EPC", grid[i][j]))
+		return (ft_printf("invalid character only 01EPC\n"), FALSE);
+	if (grid[i][j] == 'C')
+		map->item = map->item + 1;
+	if (grid[i][j] == 'P')
+	{
+		map->player_x = i;
+		map->player_y = j;
+		map->player = map->player + 1;
+	}
+	if (grid[i][j] == 'E')
+	{
+		map->exit_x = i;
+		map->exit_y = j;
+		map->exit = map->exit + 1;
+	}
+	if (grid[0][j] != '1' || grid[map->height - 1][j] != '1')
+		return (ft_printf("map is not enclosed\n"), FALSE);
+	return (TRUE);
+}
+
+int	error_display(int exit, int player, int item)
+{
+	if (exit != 1)
+		return (ft_printf("Exit error\n"), FALSE);
+	if (player != 1)
+		return (ft_printf("Player error\n"), FALSE);
+	if (item == 0)
+		return (ft_printf("at least one item required\n"), FALSE);
+	return (TRUE);
+}
 
 int	map_check(char **grid, t_map *map)
 {
@@ -35,33 +64,13 @@ int	map_check(char **grid, t_map *map)
 			return (ft_printf("map is not enclosed\n"), FALSE);
 		while (grid[i][j])
 		{
-			if (!ft_strchr("01EPC", grid[i][j]))
-				return (ft_printf("invalid character only 01EPC\n"), FALSE);
-			if (grid[i][j] == 'C')
-				map->item = map->item + 1;
-			if (grid[i][j] == 'P')
-			{
-				map->player_x = i;
-				map->player_y = j;
-				map->player = map->player + 1;
-			}
-			if (grid[i][j] == 'E')
-			{
-				map->exit_x = i;
-				map->exit_y = j;
-				map->exit = map->exit + 1;
-			}
-			if (grid[0][j] != '1' || grid[map->height - 1][j] != '1')
-				return (ft_printf("map is not enclosed\n"), FALSE);
+			if (!char_check(grid, map, i, j))
+				return (FALSE);
 			j++;
 		}
 		i++;
 	}
-	if (map->exit != 1)
-		return (ft_printf("Exit error\n"), FALSE);
-	if (map->player != 1)
-		return (ft_printf("Player error\n"), FALSE);
-	if (map->item == 0)
-		return (ft_printf("at least one item required\n"), FALSE);
+	if (!(error_display(map->exit, map->player, map->item)))
+		return (FALSE);
 	return (TRUE);
 }
