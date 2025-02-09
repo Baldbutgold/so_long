@@ -13,45 +13,55 @@
 #include "so_long.h"
 #include "libft/libft.h"
 
-int	checking_conditions()
-{
+/*int	checking_conditions()*/
+/*{*/
+/**/
+/*}*/
 
-}
-
-int	map_check(char **grid, int height, size_t *width, int *item)
+int	map_check(char **grid, t_map *map)
 {
 	int	i;
 	int	j;
-	int	exit;
-	int	player;
 
 	i = 0;
-	exit = 0;
-	player = 0;
-	*width = ft_strlen(grid[0]);
+	map->exit = 0;
+	map->player = 0;
+	map->width = ft_strlen(grid[0]);
 	while (grid[i])
 	{
 		j = 0;
-		if (ft_strlen(grid[i]) != *width
-			|| (grid[i][0] != '1' || grid[i][*width - 1] != '1'))
-			return (ft_printf("map invalid\n"), FALSE);
+		if (ft_strlen(grid[i]) != map->width
+			|| (grid[i][0] != '1' || grid[i][map->width - 1] != '1'))
+			return (ft_printf("map is not enclosed\n"), FALSE);
 		while (grid[i][j])
 		{
 			if (!ft_strchr("01EPC", grid[i][j]))
-				return (ft_printf("invalid character\n"), FALSE);
+				return (ft_printf("invalid character only 01EPC\n"), FALSE);
 			if (grid[i][j] == 'C')
-				*item = *item + 1;
+				map->item = map->item + 1;
 			if (grid[i][j] == 'P')
-				player = player + 1;
+			{
+				map->player_x = i;
+				map->player_y = j;
+				map->player = map->player + 1;
+			}
 			if (grid[i][j] == 'E')
-				exit = exit + 1;
-			if (grid[0][j] != '1' || grid[height - 1][j] != '1')
-				return (ft_printf("map is not valid\n"), FALSE);
+			{
+				map->exit_x = i;
+				map->exit_y = j;
+				map->exit = map->exit + 1;
+			}
+			if (grid[0][j] != '1' || grid[map->height - 1][j] != '1')
+				return (ft_printf("map is not enclosed\n"), FALSE);
 			j++;
 		}
 		i++;
 	}
-	if (exit != 1 || player != 1 || item == 0)
-		return (ft_printf("map is not valid\n"), FALSE);
+	if (map->exit != 1)
+		return (ft_printf("Exit error\n"), FALSE);
+	if (map->player != 1)
+		return (ft_printf("Player error\n"), FALSE);
+	if (map->item == 0)
+		return (ft_printf("at least one item required\n"), FALSE);
 	return (TRUE);
 }

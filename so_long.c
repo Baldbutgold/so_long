@@ -15,24 +15,25 @@
 
 int	main(int ac, char **av)
 {
-	char	**grid;
+	t_map	map;
 
 	if (ac == 2)
 	{
-		grid = init_program(av[1]);
-		if (!grid)
+		map.grid = init_program(av[1], &map);
+		if (!map.grid)
 			return (1);
+
 		int	j = 0;
-		while (grid[j] != 0)
-			ft_printf("%s\n", grid[j++]);
-		free_grid(grid, j);
+		while (map.grid[j] != 0)
+			ft_printf("%s\n", map.grid[j++]);
+		free_grid(map.grid, j);
 	}
 	else
-		return (ft_printf("Error, must provide a map!"), 0);
+		return (ft_printf("Error, format is : ./so_long filename!"), 1);
 }
 
 		/*ft_printf("I am here");*/
 /*int	j = 0;*/
-/*while (grid[j] != 0)*/
-/*	ft_printf("%s\n", grid[j++]);*/
-/*free_grid(grid, j);*/
+/*while (map.grid[j] != 0)*/
+/*	ft_printf("%s\n", map.grid[j++]);*/
+/*free_map.grid(grid, j);*/

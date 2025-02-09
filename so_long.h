@@ -36,20 +36,28 @@
 # define ITEM "assets/item.xpm"
 # define WALL "assets/wall.xpm"
 
-typedef struct map{
+typedef struct map
+{
 	char	**grid;
-	int	height;
-	int	width;
-} t_map; 
+	size_t	width;
+	int		player;
+	int		player_x;
+	int		player_y;
+	int		exit;
+	int		exit_x;
+	int		exit_y;
+	int		height;
+	int		item;
+}	t_map;
 
 /*FUNCTION PROTOTYPES*/
 
 void	free_grid(char **grid, int i);
-int	validate_file(char *filename, int *lines_num);
-int	process_line(char **grid, char *line, int i);
+int		validate_file(char *filename, t_map *map);
+int		process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
-char	**init_program(char *filename);
-int	map_check(char **grid, int height, size_t *width, int *item);
+char	**init_program(char *filename, t_map *map);
+int		map_check(char **grid, t_map *map);
 
 #endif
 
