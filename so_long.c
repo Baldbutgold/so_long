@@ -22,17 +22,12 @@ int	main(int ac, char **av)
 		map.grid = init_program(av[1], &map);
 		if (!map.grid)
 			return (1);
-
-		int	j = 0;
-		while (map.grid[j] != 0)
-			ft_printf("%s\n", map.grid[j++]);
-		free_grid(map.grid, j);
 	}
 	else
 		return (ft_printf("Error, format is : ./so_long filename!"), 1);
 }
 
-		/*ft_printf("I am here");*/
+/*ft_printf("I am here");*/
 /*int	j = 0;*/
 /*while (map.grid[j] != 0)*/
 /*	ft_printf("%s\n", map.grid[j++]);*/
