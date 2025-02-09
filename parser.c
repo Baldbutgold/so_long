@@ -99,9 +99,6 @@ char	**map2grid(char *filename, int height)
 char	**init_program(char *filename, t_map *map)
 {
 	char	**grid;
-	/*size_t	width;*/
-	/*int	item;*/
-	/*int		height;*/
 
 	map->item = 0;
 	map->width = 0;
@@ -112,7 +109,7 @@ char	**init_program(char *filename, t_map *map)
 		return (ft_printf("Invalid map to short\n"), NULL);
 	grid = map2grid(filename, map->height);
 	if (!grid)
-		return (free_grid(grid, map->height - 1), ft_printf("Something went wrong\n"), NULL);
+		return (free_grid(grid, map->height - 1), ft_printf("failed\n"), NULL);
 	if (!map_check(grid, map))
 		return (free_grid(grid, map->height - 1), NULL);
 	return (grid);
