@@ -40,6 +40,7 @@
 # define FALSE 0
 # define TILE_SIZE 64
 # define PLAYER "assets/player.xpm"
+# define EXIT "assets/exit.xpm"
 # define FLOOR "assets/floor.xpm"
 # define ITEM "assets/item.xpm"
 # define WALL "assets/wall.xpm"
@@ -64,7 +65,7 @@ typedef struct	s_mlx
 	void	*win;
 }	t_mlx;
 
-typedef struct s_img
+typedef struct s_imgs
 {
 	void	*player_ptr;
 	void	*floor_ptr;

@@ -9,7 +9,7 @@ int	display_map(char **grid, t_map *map)
 	int	width;
 	int	height;
 
-	(void)grid;
+	int i, (j);
 	mlx.mlx = mlx_init();
 	if (!mlx.mlx)
 		return (FALSE);
@@ -17,11 +17,33 @@ int	display_map(char **grid, t_map *map)
 	if (!mlx.win)
 		return (free(mlx.mlx), FALSE);
 	// mlx hook to register key press
+	// i think i need to check if those failed to free them or something like that
 	img.player_ptr = mlx_xpm_file_to_image(mlx.mlx, PLAYER, &width, &height);
 	img.item_ptr = mlx_xpm_file_to_image(mlx.mlx, ITEM, &width, &height);
 	img.wall_ptr = mlx_xpm_file_to_image(mlx.mlx, WALL, &width, &height);
 	img.floor_ptr = mlx_xpm_file_to_image(mlx.mlx, FLOOR, &width, &height);
-	mlx_put_image_to_window(data.mlx_ptr, mlx.mlx, img.floor_ptr, 0, 0);
+	img.exit_ptr = mlx_xpm_file_to_image(mlx.mlx, EXIT, &width, &height);
+	i = 0;
+	while (grid[i])
+	{
+		j = 0;
+		while(grid[i][j])
+		{
+			if (grid[i][j] == '1')
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.wall_ptr, j * TILE_SIZE, i * TILE_SIZE);
+			if (grid[i][j] == '0')
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.floor_ptr, j * TILE_SIZE, i * TILE_SIZE);
+			if (grid[i][j] == 'C')
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.item_ptr, j * TILE_SIZE, i * TILE_SIZE);
+			if (grid[i][j] == 'P')
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.player_ptr, j * TILE_SIZE, i * TILE_SIZE);
+			if (grid[i][j] == 'E')
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.exit_ptr, j * TILE_SIZE, i * TILE_SIZE);
+			j++;
+		}
+		i++;
+	}
+	/*mlx_put_image_to_window(mlx.mlx, mlx.win, img._ptr, 0, 0);*/
 	mlx_loop(mlx.mlx);
 
 	return (TRUE);
