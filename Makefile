@@ -15,6 +15,9 @@ MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 # all: 
 # 	cc $(CFLAGS) parser.c libft.a -o parser
 
+all: so_long.c map_check.c parser.c
+	cc parser.c so_long.c map_check.c libft.a -o so_long
+
 mlx: test_window.c
 	cc test_window.c libmlx.a -Lmlx -L/usr/lib/X11 -lXext -lX11 -o ./test_window
 
