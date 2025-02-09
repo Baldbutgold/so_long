@@ -15,6 +15,11 @@
 
 /*# include "/usr/include/minilibx-linux/mlx.h"*/
 
+/*w : 119*/
+/*a : 97*/
+/*s : 115*/
+/*d : 100*/
+
 /*0 for an empty space,*/
 /*1 for a wall,*/
 /*C for a collectible,*/
@@ -28,6 +33,9 @@
 # include "libft/libft.h"
 # include <stdlib.h>
 
+#include <X11/X.h>
+#include <X11/keysym.h>
+
 # define TRUE 1
 # define FALSE 0
 # define TILE_SIZE 64
@@ -36,7 +44,7 @@
 # define ITEM "assets/item.xpm"
 # define WALL "assets/wall.xpm"
 
-typedef struct map
+typedef struct s_map
 {
 	char	**grid;
 	size_t	width;
@@ -50,6 +58,21 @@ typedef struct map
 	int		item;
 }	t_map;
 
+typedef struct	s_mlx
+{
+	void	*mlx;
+	void	*win;
+}	t_mlx;
+
+typedef struct s_img
+{
+	void	*player_ptr;
+	void	*floor_ptr;
+	void	*item_ptr;
+	void	*wall_ptr;
+	void	*exit_ptr;
+}	t_img;
+
 /*FUNCTION PROTOTYPES*/
 
 void	free_grid(char **grid, int i);
@@ -58,6 +81,7 @@ int		process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
 char	**init_program(char *filename, t_map *map);
 int		map_check(char **grid, t_map *map);
+int	display_map(char **grid, t_map *map);
 
 #endif
 

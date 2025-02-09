@@ -43,7 +43,7 @@ int	error_display(int exit, int player, int item)
 	if (player != 1)
 		return (ft_printf("Player error\n"), FALSE);
 	if (item == 0)
-		return (ft_printf("at least one item required\n"), FALSE);
+		return (ft_printf("Item error\n"), FALSE);
 	return (TRUE);
 }
 

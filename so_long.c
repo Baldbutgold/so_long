@@ -22,6 +22,7 @@ int	main(int ac, char **av)
 		map.grid = init_program(av[1], &map);
 		if (!map.grid)
 			return (1);
+		display_map(map.grid, &map);
 	}
 	else
 		return (ft_printf("Error, format is : ./so_long filename!"), 1);
