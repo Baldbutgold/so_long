@@ -49,7 +49,7 @@ int	validate_file(char *filename, int *lines_num);
 int	process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
 char	**init_program(char *filename);
-int	check_map(char **grid, int height, size_t *width, int *item);
+int	map_check(char **grid, int height, size_t *width, int *item);
 
 #endif
 

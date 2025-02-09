@@ -13,7 +13,7 @@
 #include "so_long.h"
 #include "libft/libft.h"
 
-int	check_map(char **grid, int height, size_t *width, int *item)
+int	map_check(char **grid, int height, size_t *width, int *item)
 {
 	int	i;
 	int	j;
@@ -30,7 +30,7 @@ int	check_map(char **grid, int height, size_t *width, int *item)
 		if (ft_strlen(grid[i]) != *width
 			|| (grid[i][0] != '1' && grid[i][*width] != '1'))
 			return (ft_printf("map invalid\n"), FALSE);
-		while(grid[i][j])
+		while (grid[i][j])
 		{
 			if (!ft_strchr("01EPC", grid[i][j]))
 				return (ft_printf("invalid character\n"), FALSE);

@@ -113,7 +113,7 @@ char	**init_program(char *filename)
 	grid = map2grid(filename, height);
 	if (!grid)
 		return (free_grid(grid, height - 1), ft_printf("Something went wrong\n"), NULL);
-	if (!check_map(grid, height, &width, &item))
+	if (!map_check(grid, height, &width, &item))
 		return (free_grid(grid, height - 1), NULL);
 	return (grid);
 }
