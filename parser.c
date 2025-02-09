@@ -109,7 +109,7 @@ char	**init_program(char *filename)
 	if (!validate_file(filename, &height))
 		return (NULL);
 	if (height <= 2)
-		return (ft_printf("Invalid map, too small\n"), NULL);
+		return (ft_printf("Invalid map\n"), NULL);
 	grid = map2grid(filename, height);
 	if (!grid)
 		return (free_grid(grid, height - 1), ft_printf("Something went wrong\n"), NULL);
