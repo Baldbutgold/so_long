@@ -18,11 +18,11 @@ int	display_map(char **grid, t_map *map)
 		return (free(mlx.mlx), FALSE);
 	// mlx hook to register key press
 	// i think i need to check if those failed to free them or something like that
-	img.player_ptr = mlx_xpm_file_to_image(mlx.mlx, PLAYER, &width, &height);
-	img.item_ptr = mlx_xpm_file_to_image(mlx.mlx, ITEM, &width, &height);
-	img.wall_ptr = mlx_xpm_file_to_image(mlx.mlx, WALL, &width, &height);
-	img.floor_ptr = mlx_xpm_file_to_image(mlx.mlx, FLOOR, &width, &height);
-	img.exit_ptr = mlx_xpm_file_to_image(mlx.mlx, EXIT, &width, &height);
+	img.sprites[P] = mlx_xpm_file_to_image(mlx.mlx, PLAYER, &width, &height);
+	img.sprites[I] = mlx_xpm_file_to_image(mlx.mlx, ITEM, &width, &height);
+	img.sprites[W] = mlx_xpm_file_to_image(mlx.mlx, WALL, &width, &height);
+	img.sprites[F] = mlx_xpm_file_to_image(mlx.mlx, FLOOR, &width, &height);
+	img.sprites[E] = mlx_xpm_file_to_image(mlx.mlx, EXIT, &width, &height);
 	i = 0;
 	while (grid[i])
 	{
@@ -30,15 +30,15 @@ int	display_map(char **grid, t_map *map)
 		while(grid[i][j])
 		{
 			if (grid[i][j] == '1')
-				mlx_put_image_to_window(mlx.mlx, mlx.win, img.wall_ptr, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.sprites[W], j * TILE_SIZE, i * TILE_SIZE);
 			if (grid[i][j] == '0')
-				mlx_put_image_to_window(mlx.mlx, mlx.win, img.floor_ptr, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.sprites[F], j * TILE_SIZE, i * TILE_SIZE);
 			if (grid[i][j] == 'C')
-				mlx_put_image_to_window(mlx.mlx, mlx.win, img.item_ptr, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.sprites[I], j * TILE_SIZE, i * TILE_SIZE);
 			if (grid[i][j] == 'P')
-				mlx_put_image_to_window(mlx.mlx, mlx.win, img.player_ptr, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.sprites[P], j * TILE_SIZE, i * TILE_SIZE);
 			if (grid[i][j] == 'E')
-				mlx_put_image_to_window(mlx.mlx, mlx.win, img.exit_ptr, j * TILE_SIZE, i * TILE_SIZE);
+				mlx_put_image_to_window(mlx.mlx, mlx.win, img.sprites[E], j * TILE_SIZE, i * TILE_SIZE);
 			j++;
 		}
 		i++;

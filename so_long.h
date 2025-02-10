@@ -44,6 +44,11 @@
 # define FLOOR "assets/floor.xpm"
 # define ITEM "assets/item.xpm"
 # define WALL "assets/wall.xpm"
+# define P 0
+# define E 1
+# define F 2
+# define I 3
+# define W 4
 
 typedef struct s_map
 {
@@ -67,11 +72,12 @@ typedef struct	s_mlx
 
 typedef struct s_imgs
 {
-	void	*player_ptr;
-	void	*floor_ptr;
-	void	*item_ptr;
-	void	*wall_ptr;
-	void	*exit_ptr;
+	void	*sprites[5];
+	/*void	*player_ptr;*/
+	/*void	*floor_ptr;*/
+	/*void	*item_ptr;*/
+	/*void	*wall_ptr;*/
+	/*void	*exit_ptr;*/
 }	t_img;
 
 /*FUNCTION PROTOTYPES*/
