@@ -53,6 +53,7 @@
 typedef struct s_map
 {
 	char	**grid;
+	char	*filename;
 	size_t	width;
 	int		player;
 	int		player_x;
@@ -63,6 +64,8 @@ typedef struct s_map
 	int		height;
 	int		item;
 	int		collected;
+	int		found_exit;
+	int		fd;
 }	t_map;
 
 typedef struct	s_mlx
@@ -84,10 +87,10 @@ typedef struct s_imgs
 /*FUNCTION PROTOTYPES*/
 
 void	free_grid(char **grid, int i);
-int		validate_file(char *filename, t_map *map);
+int		validate_file(t_map *map);
 int		process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
-char	**init_program(char *filename, t_map *map);
+char	**init_program(t_map *map);
 int		map_check(char **grid, t_map *map);
 int	display_map(char **grid, t_map *map);
 

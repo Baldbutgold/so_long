@@ -19,7 +19,8 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		map.grid = init_program(av[1], &map);
+		map.filename = av[1];
+		map.grid = init_program(&map);
 		if (!map.grid)
 			return (1);
 		display_map(map.grid, &map);

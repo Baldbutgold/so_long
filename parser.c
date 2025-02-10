@@ -30,15 +30,15 @@ void	free_grid(char **grid, int i)
 
 /* Validating file extension and getting the number of lines with gnl*/
 
-int	validate_file(char *filename, t_map *map)
+int	validate_file(t_map *map)
 {
 	char	*line;
 	char	*ext;
 	int		fd;
 
-	fd = open(filename, O_RDWR);
-	ext = ft_strrchr(filename, '.');
-	if (fd < 0 || !ext || ext == filename
+	fd = open(map->filename, O_RDWR);
+	ext = ft_strrchr(map->filename, '.');
+	if (fd < 0 || !ext || ext == map->filename
 		|| *(ext - 1) == '/' || ft_strcmp(ext, ".ber") != 0)
 		return (ft_printf("Invalid File path or extension\n"), FALSE);
 	else
@@ -96,18 +96,18 @@ char	**map2grid(char *filename, int height)
 	return (grid);
 }
 
-char	**init_program(char *filename, t_map *map)
+char	**init_program(t_map *map)
 {
 	char	**grid;
 
 	map->item = 0;
 	map->width = 0;
 	map->height = 0;
-	if (!validate_file(filename, map))
+	if (!validate_file(map))
 		return (NULL);
 	if (map->height <= 2)
 		return (ft_printf("Invalid map to short\n"), NULL);
-	grid = map2grid(filename, map->height);
+	grid = map2grid(map->filename, map->height);
 	if (!grid)
 		return (free_grid(grid, map->height - 1), ft_printf("failed\n"), NULL);
 	if (!map_check(grid, map))
