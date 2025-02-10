@@ -72,19 +72,19 @@ int	init_check(char **grid, t_map *map)
 	return (TRUE);
 }
 
-int	flood_fill(char **grid, t_map *map, int x, int y)
-{
-	if (x < 0 || y < 0 || grid[x] == 0 || grid[x][y] == '1' || grid[x][y] == 'F')
-		return (ft_printf("invalid grid[%d][%d] items %d\n", x, y, map->collected), FALSE);
-	if (grid[x][y] == 'C')
-		map->collected++;
-	grid[x][y] = 'F';
-	flood_fill(grid, map, x + 1, y);
-	flood_fill(grid, map, x - 1, y);
-	flood_fill(grid, map, x, y + 1);
-	flood_fill(grid, map, x, y - 1);
-	return (map->collected == map->item && grid[x][y] == 'E');
-}
+/*int	flood_fill(char **grid, t_map *map, int x, int y)*/
+/*{*/
+/*	if (x < 0 || y < 0 || grid[x] == 0 || grid[x][y] == '1' || grid[x][y] == 'F')*/
+/*		return (ft_printf("invalid grid[%d][%d] items %d\n", x, y, map->collected), FALSE);*/
+/*	if (grid[x][y] == 'C')*/
+/*		map->collected++;*/
+/*	grid[x][y] = 'F';*/
+/*	flood_fill(grid, map, x + 1, y);*/
+/*	flood_fill(grid, map, x - 1, y);*/
+/*	flood_fill(grid, map, x, y + 1);*/
+/*	flood_fill(grid, map, x, y - 1);*/
+/*	return (map->collected == map->item && grid[x][y] == 'E');*/
+/*}*/
 
 int	map_check(char **grid, t_map *map)
 {
@@ -95,7 +95,7 @@ int	map_check(char **grid, t_map *map)
 	if (!(init_check(grid, map)))
 		return (FALSE);
 	/*ft_printf("player[%d][%d]\n", map->player_x, map->player_y);*/
-	if (flood_fill(grid, map, map->player_x, map->player_y) == 0)
-		return (ft_printf("valid"), TRUE);
+	/*if (flood_fill(grid, map, map->player_x, map->player_y) == 0)*/
+		/*return (ft_printf("valid"), TRUE);*/
 	return (TRUE);
 }
