@@ -62,6 +62,7 @@ typedef struct s_map
 	int		exit_y;
 	int		height;
 	int		item;
+	int		collected;
 }	t_map;
 
 typedef struct	s_mlx
