@@ -74,8 +74,9 @@ int	init_check(char **grid, t_map *map)
 
 void	flood_fill(char **grid, t_map *map, int x, int y)
 {
-	if (x < 0 || y < 0 || grid[x] == 0 || grid[x][y] == '1' || grid[x][y] == 'V')
-		return;
+	if (x < 0 || y < 0 || grid[x] == 0
+		|| grid[x][y] == '1' || grid[x][y] == 'V')
+		return ;
 	if (grid[x][y] == 'C')
 		map->collected++;
 	if (grid[x][y] == 'E')
@@ -104,8 +105,6 @@ int	map_check(char **grid, t_map *map)
 	flood_fill(temp_grid, map, map->player_x, map->player_y);
 	free_grid(temp_grid, map->height - 1);
 	if (!(map->collected == map->item && map->found_exit == 1))
-		return (ft_printf("Map is Impossible\n"), FALSE);
-	else
-		ft_printf("valid map to play\n");
+		return (ft_printf("Map is Impossible make it possible :)\n"), FALSE);
 	return (TRUE);
 }
