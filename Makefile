@@ -4,7 +4,7 @@ SERVER_SRC = parser.c
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra
+#CFLAGS = -Wall -Werror -Wextra
 
 INCLUDES = -I/usr/include -Imlx
 
@@ -16,7 +16,7 @@ MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 # 	cc $(CFLAGS) parser.c libft.a -o parser
 
 all:
-	cc -Wall -Werror -Wextra so_long.c parser.c map_check.c display_map.c libft.a libmlx.a -Lmlx -L/usr/lib/X11 -lXext -lX11 -o so_long
+	cc  so_long.c parser.c map_check.c display_map.c libft.a libmlx.a -Lmlx -L/usr/lib/X11 -lXext -lX11 -o so_long
 # all: so_long.c map_check.c parser.c
 # 	cc parser.c so_long.c map_check.c libft.a -o so_long
 

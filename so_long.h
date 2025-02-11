@@ -32,13 +32,25 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 # include <stdlib.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
-#include <X11/X.h>
-#include <X11/keysym.h>
+/*Error Messages*/
 
+# define ERROR "Error\n"
+# define FILE "Invalid File path or extension\n"
+# define FAIL "Malloc Failed Try again\n"
+# define SHORT "Map is too short\n"
+# define FORMAT "wrong format, try: ./so_long filename\n"
+# define INV_CHAR "Invalid characters, try only 01EPC\n"
+# define BORDERS "The Borders are not enclosed\n"
+# define E_ERROR "Exit error\n"
+# define P_ERROR "Player error\n"
+# define I_ERROR "Item error\n"
+# define INV_MAP "Map is Impossible\n"
 # define TRUE 1
 # define FALSE 0
-# define TILE_SIZE 64
+# define T 64
 # define PLAYER "assets/player.xpm"
 # define EXIT "assets/exit.xpm"
 # define FLOOR "assets/floor.xpm"
@@ -68,7 +80,7 @@ typedef struct s_map
 	int		fd;
 }	t_map;
 
-typedef struct	s_mlx
+typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
@@ -77,11 +89,6 @@ typedef struct	s_mlx
 typedef struct s_imgs
 {
 	void	*sprites[5];
-	/*void	*player_ptr;*/
-	/*void	*floor_ptr;*/
-	/*void	*item_ptr;*/
-	/*void	*wall_ptr;*/
-	/*void	*exit_ptr;*/
 }	t_img;
 
 /*FUNCTION PROTOTYPES*/
@@ -92,15 +99,6 @@ int		process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
 char	**init_program(t_map *map);
 int		map_check(char **grid, t_map *map);
-int	display_map(char **grid, t_map *map);
+int		display_map(char **grid, t_map *map);
 
 #endif
-
-/*typedef struct s_data*/
-/*{*/
-/*	void		*mlx_ptr; // MLX pointer*/
-/*	void		*win_ptr; // MLX window pointer*/
-/*	void		*textures[5]; // MLX image pointers (on the stack)*/
-/*	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)*/
-/*}	t_data;*/
-/**/

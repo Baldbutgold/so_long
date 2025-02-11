@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 		display_map(map.grid, &map);
 	}
 	else
-		return (ft_printf("Error, format is : ./so_long filename!"), 1);
+		return (ft_printf("%s%s", ERROR, FORMAT), 1);
 }
 
 /*ft_printf("I am here");*/

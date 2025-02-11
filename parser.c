@@ -40,7 +40,7 @@ int	validate_file(t_map *map)
 	ext = ft_strrchr(map->filename, '.');
 	if (fd < 0 || !ext || ext == map->filename
 		|| *(ext - 1) == '/' || ft_strcmp(ext, ".ber") != 0)
-		return (ft_printf("Invalid File path or extension\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, FILE), FALSE);
 	else
 	{
 		line = get_next_line(fd);
@@ -106,10 +106,10 @@ char	**init_program(t_map *map)
 	if (!validate_file(map))
 		return (NULL);
 	if (map->height <= 2)
-		return (ft_printf("Invalid map to short\n"), NULL);
+		return (ft_printf("%s%s", ERROR, SHORT), NULL);
 	grid = map2grid(map->filename, map->height);
 	if (!grid)
-		return (free_grid(grid, map->height - 1), ft_printf("failed\n"), NULL);
+		return (free_grid(grid, map->height - 1), ft_printf("%s%s", ERROR, FAIL), NULL);
 	if (!map_check(grid, map))
 		return (free_grid(grid, map->height - 1), NULL);
 	return (grid);

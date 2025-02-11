@@ -16,7 +16,7 @@
 int	char_check(char **grid, t_map *map, int i, int j)
 {
 	if (!ft_strchr("01EPC", grid[i][j]))
-		return (ft_printf("invalid character only 01EPC\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, INV_CHAR), FALSE);
 	if (grid[i][j] == 'C')
 		map->item = map->item + 1;
 	if (grid[i][j] == 'P')
@@ -32,18 +32,18 @@ int	char_check(char **grid, t_map *map, int i, int j)
 		map->exit = map->exit + 1;
 	}
 	if (grid[0][j] != '1' || grid[map->height - 1][j] != '1')
-		return (ft_printf("map is not enclosed\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, BORDERS), FALSE);
 	return (TRUE);
 }
 
 int	error_display(int exit, int player, int item)
 {
 	if (exit != 1)
-		return (ft_printf("Exit error\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, E_ERROR), FALSE);
 	if (player != 1)
-		return (ft_printf("Player error\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, P_ERROR), FALSE);
 	if (item == 0)
-		return (ft_printf("Item error\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, I_ERROR), FALSE);
 	return (TRUE);
 }
 
@@ -58,7 +58,7 @@ int	init_check(char **grid, t_map *map)
 		j = 0;
 		if (ft_strlen(grid[i]) != map->width
 			|| (grid[i][0] != '1' || grid[i][map->width - 1] != '1'))
-			return (ft_printf("map is not enclosed\n"), FALSE);
+			return (ft_printf("%s%s", ERROR, BORDERS), FALSE);
 		while (grid[i][j])
 		{
 			if (!char_check(grid, map, i, j))
@@ -105,6 +105,6 @@ int	map_check(char **grid, t_map *map)
 	flood_fill(temp_grid, map, map->player_x, map->player_y);
 	free_grid(temp_grid, map->height - 1);
 	if (!(map->collected == map->item && map->found_exit == 1))
-		return (ft_printf("Map is Impossible make it possible :)\n"), FALSE);
+		return (ft_printf("%s%s", ERROR, INV_MAP), FALSE);
 	return (TRUE);
 }
