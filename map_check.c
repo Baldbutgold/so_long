@@ -101,10 +101,11 @@ int	map_check(char **grid, t_map *map)
 	if (!temp_grid)
 		free_grid(temp_grid, map->height - 1);
 	if (!(init_check(grid, map)))
-		return (FALSE);
+		return (free_grid(grid, map->height - 1), FALSE);
 	flood_fill(temp_grid, map, map->player_x, map->player_y);
 	free_grid(temp_grid, map->height - 1);
 	if (!(map->collected == map->item && map->found_exit == 1))
-		return (ft_printf("%s%s", ERROR, INV_MAP), FALSE);
+		return (free_grid(grid, map->height - 1),
+			ft_printf("%s%s", ERROR, INV_MAP), FALSE);
 	return (TRUE);
 }

@@ -2,3 +2,4 @@ make the character move
 add event listener to close the images
 make sure the memory is properly managed
 check the leaks if there are any
+i have double free somewhere when map failed at 2 players more testing is required

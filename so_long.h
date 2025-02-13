@@ -51,11 +51,12 @@
 # define TRUE 1
 # define FALSE 0
 # define T 64
-# define PLAYER "assets/player.xpm"
-# define EXIT "assets/exit.xpm"
-# define FLOOR "assets/floor.xpm"
-# define ITEM "assets/item.xpm"
-# define WALL "assets/wall.xpm"
+# define PLAYER "textures/player.xpm"
+# define EXIT "textures/exit.xpm"
+# define FLOOR "textures/floor.xpm"
+# define ITEM "textures/item.xpm"
+# define WALL "textures/wall.xpm"
+
 # define P 0
 # define E 1
 # define F 2
@@ -78,6 +79,7 @@ typedef struct s_map
 	int		collected;
 	int		found_exit;
 	int		fd;
+	void		*imgs[5];
 }	t_map;
 
 typedef struct s_mlx
@@ -85,11 +87,6 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*win;
 }	t_mlx;
-
-typedef struct s_imgs
-{
-	void	*sprites[5];
-}	t_img;
 
 /*FUNCTION PROTOTYPES*/
 
