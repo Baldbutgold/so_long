@@ -71,9 +71,9 @@ typedef struct s_map
 	int		player;
 	int		player_x;
 	int		player_y;
-	int		exit;
 	int		exit_x;
 	int		exit_y;
+	int		exit;
 	int		height;
 	int		item;
 	int		collected;

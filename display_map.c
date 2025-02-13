@@ -33,6 +33,11 @@ void	put_images(t_map *map, int i, int j)
 			  map->imgs[P], j * T, i * T);
 }
 
+void	put_player_on_exit(t_map *map)
+{
+
+}
+
 void	put_images_while(t_map *map)
 {
 	int	j;
@@ -77,10 +82,13 @@ void	update_pos(t_map *map, int x, int y)
 		if (map->collected == map->item)
 			is_exit = 1;
 	}
-	if (map->grid[x][y] == 'E')
+	if (map->grid[x][y] == 'E' || map->grid[map->player_x][map->player_y] == 'E')
 	{
 		if (is_exit == 1)
-			ft_printf("exit game\n");
+			mlx_destroy_display(map->mlx);
+		else
+		{
+		}
 	}
 	map->grid[x][y] = 'P';
 	map->grid[map->player_x][map->player_y] = '0';
