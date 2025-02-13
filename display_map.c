@@ -14,7 +14,7 @@
 #include "so_long.h"
 #include "libft/libft.h"
 
-void	put_images(t_map *map, t_mlx *mlx)
+void	put_images(t_map *map)
 {
 	int	j;
 	int	i;
@@ -25,74 +25,43 @@ void	put_images(t_map *map, t_mlx *mlx)
 		j = 0;
 		while (map->grid[i][j])
 		{
-			mlx_put_image_to_window(mlx->mlx, mlx->win,
-				map->imgs[F], j * T, i * T);
+			mlx_put_image_to_window(map->mlx, map->win,
+			   map->imgs[F], j * T, i * T);
 			if (map->grid[i][j] == '1')
-				mlx_put_image_to_window(mlx->mlx, mlx->win, map->imgs[W], j * T, i * T);
+				mlx_put_image_to_window(map->mlx, map->win,
+			    map->imgs[W], j * T, i * T);
 			if (map->grid[i][j] == 'C')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[I], j * T, i * T);
+				mlx_put_image_to_window(map->mlx, map->win,
+			    map->imgs[I], j * T, i * T);
 			if (map->grid[i][j] == 'E')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[E], j * T, i * T);
+				mlx_put_image_to_window(map->mlx, map->win,
+			    map->imgs[E], j * T, i * T);
 			if (map->grid[i][j] == 'P')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[P], j * T, i * T);
-			j++;
-		}
-		i++;
-	}
-}
-void	put_images_2(t_map *map, t_mlx *mlx)
-{
-	int	j;
-	int	i;
-
-	i = 0;
-	while (map->grid[i])
-	{
-		printf("%s\n", map->grid[i]);
-		j = 0;
-		while (map->grid[i][j])
-		{
-			mlx_put_image_to_window(mlx->mlx, mlx->win,
-				map->imgs[F], j * T, i * T);
-			ft_printf("\nIm here\n");
-			if (map->grid[i][j] == '1')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[W], j * T, i * T);
-			if (map->grid[i][j] == 'C')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[I], j * T, i * T);
-			if (map->grid[i][j] == 'E')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[E], j * T, i * T);
-			if (map->grid[i][j] == 'P')
-				mlx_put_image_to_window(mlx->mlx, mlx->win,
-					map->imgs[P], j * T, i * T);
+				mlx_put_image_to_window(map->mlx, map->win,
+			    map->imgs[P], j * T, i * T);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	init_images(t_map *map, t_mlx *mlx)
+void	init_images(t_map *map)
 {
 	int	width;
 	int	height;
 
-	map->imgs[P] = mlx_xpm_file_to_image(mlx->mlx, PLAYER, &width, &height);
-	map->imgs[I] = mlx_xpm_file_to_image(mlx->mlx, ITEM, &width, &height);
-	map->imgs[W] = mlx_xpm_file_to_image(mlx->mlx, WALL, &width, &height);
-	map->imgs[F] = mlx_xpm_file_to_image(mlx->mlx, FLOOR, &width, &height);
-	map->imgs[E] = mlx_xpm_file_to_image(mlx->mlx, EXIT, &width, &height);
-	put_images(map, mlx);
+	map->imgs[P] = mlx_xpm_file_to_image(map->mlx, PLAYER, &width, &height);
+	map->imgs[I] = mlx_xpm_file_to_image(map->mlx, ITEM, &width, &height);
+	map->imgs[W] = mlx_xpm_file_to_image(map->mlx, WALL, &width, &height);
+	map->imgs[F] = mlx_xpm_file_to_image(map->mlx, FLOOR, &width, &height);
+	map->imgs[E] = mlx_xpm_file_to_image(map->mlx, EXIT, &width, &height);
+	put_images(map);
 }
 
-void	update_pos(t_map *map, t_mlx *mlx, int x, int y)
+void	update_pos(t_map *map, int x, int y)
 {
-	map->grid[map->player_x][map->player_y] = '0';
 	map->grid[x][y] = 'P';
+	map->grid[map->player_x][map->player_y] = '0';
 	map->player_x = x;
 	map->player_y = y;
 	int	i = 0;
@@ -100,22 +69,21 @@ void	update_pos(t_map *map, t_mlx *mlx, int x, int y)
 	while (map->grid[i])
 		printf("%s\n", map->grid[i++]);
 	ft_printf("\n");
-	put_images_2(map, mlx);
+	put_images(map);
 }
 
 /*// a function to update */
-int	key_handler(int keycode, t_map *map, t_mlx *mlx)
+int	key_handler(int keycode, t_map *map)
 {
 	static int	moves;
-	ft_printf("\n");
 	if (keycode == XK_W || keycode == XK_w)
-		update_pos(map, mlx, map->player_x - 1, map->player_y);
+		update_pos(map, map->player_x - 1, map->player_y);
 	if (keycode == XK_A || keycode == XK_a)
-		update_pos(map, mlx, map->player_x, map->player_y - 1);
+		update_pos(map, map->player_x, map->player_y - 1);
 	if (keycode == XK_S || keycode == XK_s)
-		update_pos(map, mlx, map->player_x + 1, map->player_y);
+		update_pos(map, map->player_x + 1, map->player_y);
 	if (keycode == XK_D || keycode == XK_d)
-		update_pos(map, mlx, map->player_x, map->player_y + 1);
+		update_pos(map, map->player_x, map->player_y + 1);
 	if (keycode == XK_Escape)
 		ft_printf("escaped pressed\n");
 	moves = moves + 1;
@@ -125,31 +93,28 @@ int	key_handler(int keycode, t_map *map, t_mlx *mlx)
 
 int	display_map(char **grid, t_map *map)
 {
-	t_mlx	mlx;
-
-
-	mlx.mlx = mlx_init();
-	if (!mlx.mlx)
+	map->mlx = mlx_init();
+	if (!map->mlx)
 		return (FALSE);
-	mlx.win = mlx_new_window(mlx.mlx, map->width * T, map->height * T, "game");
-	if (!mlx.win)
-		return (free(mlx.mlx), free_grid(grid, map->height - 1), FALSE);
-	init_images(map, &mlx);
-	mlx_hook(mlx.win, 2, 1L<<0, key_handler, map);
-	mlx_loop(mlx.mlx);
+	map->win = mlx_new_window(map->mlx, map->width * T, map->height * T, "game");
+	if (!map->win)
+		return (free(map->mlx), free_grid(grid, map->height - 1), FALSE);
+	init_images(map);
+	mlx_hook(map->win, 2, 1L<<0, key_handler, map);
+	mlx_loop(map->mlx);
 	return (TRUE);
 }
 /* free when destroyed, esc or x & what is width & height?*/
 /*	sleep(10);*/
-/*	mlx_destroy_window(mlx_ptr, win_ptr);*/
-/*	mlx_destroy_display(mlx_ptr);*/
-/*	free(mlx_ptr);*/
+/*	map_destroy_window(mlx_ptr, win_ptr);*/
+/*	map_destroy_display(mlx_ptr);*/
+/*	free(map_ptr);*/
 
 /*int on_destroy(t_data *data)*/
 /*{*/
-/*	mlx_destroy_window(data->mlx_ptr, data->win_ptr);*/
-/*	mlx_destroy_display(data->mlx_ptr);*/
-/*	free(data->mlx_ptr);*/
+/*	map_destroy_window(data->mlx_ptr, data->win_ptr);*/
+/*	map_destroy_display(data->mlx_ptr);*/
+/*	free(data->map_ptr);*/
 /*	exit(0);*/
 /*	return (0);*/
 /*}*/

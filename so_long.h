@@ -80,13 +80,9 @@ typedef struct s_map
 	int		found_exit;
 	int		fd;
 	void		*imgs[5];
-}	t_map;
-
-typedef struct s_mlx
-{
 	void	*mlx;
 	void	*win;
-}	t_mlx;
+}	t_map;
 
 /*FUNCTION PROTOTYPES*/
 
