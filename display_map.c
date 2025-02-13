@@ -25,17 +25,10 @@ void	put_images(t_map *map, int i, int j)
 	if (map->grid[i][j] == 'C')
 		mlx_put_image_to_window(map->mlx, map->win,
 			map->imgs[I], j * T, i * T);
-	if (map->grid[i][j] == 'E')
-		mlx_put_image_to_window(map->mlx, map->win,
-			map->imgs[E], j * T, i * T);
-	if (map->grid[i][j] == 'P')
-		mlx_put_image_to_window(map->mlx, map->win,
-			  map->imgs[P], j * T, i * T);
-}
-
-void	put_player_on_exit(t_map *map)
-{
-
+	mlx_put_image_to_window(map->mlx, map->win,
+		map->imgs[E], map->exit_y * T, map->exit_x * T);
+	mlx_put_image_to_window(map->mlx, map->win,
+		map->imgs[P], map->player_y * T, map->player_x * T);
 }
 
 void	put_images_while(t_map *map)
@@ -76,30 +69,32 @@ void	update_pos(t_map *map, int x, int y)
 
 	if (map->grid[x][y] == '1')
 		return ;
+	moves = moves + 1;
+	ft_printf("moves : %d\n", moves);
 	if (map->grid[x][y] == 'C')
 	{
 		map->collected = map->collected + 1;
 		if (map->collected == map->item)
 			is_exit = 1;
 	}
-	if (map->grid[x][y] == 'E' || map->grid[map->player_x][map->player_y] == 'E')
+	if (x == map->exit_x && y == map->exit_y && is_exit)
 	{
-		if (is_exit == 1)
-			mlx_destroy_display(map->mlx);
-		else
-		{
-		}
+		mlx_destroy_display(map->mlx);
+		return ;
 	}
-	map->grid[x][y] = 'P';
 	map->grid[map->player_x][map->player_y] = '0';
+	map->grid[x][y] = 'P';
 	map->player_x = x;
 	map->player_y = y;
-	moves = moves + 1;
-	int	j = 0;
-	while (map->grid[j])
-		ft_printf("%s\n", map->grid[j++]);
-	ft_printf("moves : %d\n", moves);
 	put_images_while(map);
+}
+
+int	key_closer(int keycode, t_map *map)
+{
+		mlx_destroy_window(map->mlx, map->win);
+		/*free all vars*/
+		exit(0);
+	return (TRUE);
 }
 
 int	key_handler(int keycode, t_map *map)
@@ -113,10 +108,14 @@ int	key_handler(int keycode, t_map *map)
 	if (keycode == XK_D || keycode == XK_d)
 		update_pos(map, map->player_x, map->player_y + 1);
 	if (keycode == XK_Escape)
-		ft_printf("escaped pressed\n");
-	return (0);
+	{
+		ft_printf("%p %p\n", map->mlx, map->win);
+		mlx_destroy_window(map->mlx, map->win);
+		/*free all vars*/
+		exit(0);
+	}
+	return (TRUE);
 }
-/*close handler*/
 
 int	display_map(char **grid, t_map *map)
 {
@@ -126,9 +125,10 @@ int	display_map(char **grid, t_map *map)
 	map->win = mlx_new_window(map->mlx, map->width * T, map->height * T, "game");
 	if (!map->win)
 		return (free(map->mlx), free_grid(grid, map->height - 1), FALSE);
-	init_images(map);
 	map->collected = 0;
+	init_images(map);
 	mlx_hook(map->win, 2, 1L<<0, key_handler, map);
+	mlx_hook(map->win, 17, 1L<<5, key_closer, map);
 	mlx_loop(map->mlx);
 	return (TRUE);
 }

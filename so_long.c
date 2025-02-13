@@ -24,6 +24,7 @@ int	main(int ac, char **av)
 		if (!map.grid)
 			return (1);
 		display_map(map.grid, &map);
+		free_grid(map.grid, map.height - 1);
 	}
 	else
 		return (ft_printf("%s%s", ERROR, FORMAT), 1);

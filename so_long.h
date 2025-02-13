@@ -27,13 +27,15 @@
 /*P for the player’s starting position.*/
 
 # include "mlx/mlx.h"
-# include <errno.h>
-# include <stdio.h>
+# include <stdlib.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-# include <stdlib.h>
+
 # include <X11/X.h>
 # include <X11/keysym.h>
+
+# define TRUE 1
+# define FALSE 0
 
 /*Error Messages*/
 
@@ -48,9 +50,9 @@
 # define P_ERROR "Player error\n"
 # define I_ERROR "Item error\n"
 # define INV_MAP "Map is Impossible\n"
-# define TRUE 1
-# define FALSE 0
+
 # define T 64
+
 # define PLAYER "textures/player.xpm"
 # define EXIT "textures/exit.xpm"
 # define FLOOR "textures/floor.xpm"

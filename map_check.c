@@ -97,11 +97,11 @@ int	map_check(char **grid, t_map *map)
 	map->player = 0;
 	map->width = ft_strlen(grid[0]);
 	map->collected = 0;
+	if (!(init_check(grid, map)))
+		return (FALSE);
 	temp_grid = map2grid(map->filename, map->height);
 	if (!temp_grid)
 		free_grid(temp_grid, map->height - 1);
-	if (!(init_check(grid, map)))
-		return (free_grid(grid, map->height - 1), FALSE);
 	flood_fill(temp_grid, map, map->player_x, map->player_y);
 	free_grid(temp_grid, map->height - 1);
 	if (!(map->collected == map->item && map->found_exit == 1))
