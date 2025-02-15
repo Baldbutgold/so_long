@@ -58,13 +58,12 @@ int	main(int ac, char **av)
 		map.grid = init_program(&map);
 		if (!map.grid)
 			return (1);
-		display_map(map.grid, &map);
+		display_map(&map);
 		free_grid(map.grid, map.height - 1);
 	}
 	else
 		return (ft_printf("%s%s", ERROR, FORMAT), 1);
 }
-
 /*ft_printf("I am here");*/
 /*int	j = 0;*/
 /*while (map.grid[j] != 0)*/

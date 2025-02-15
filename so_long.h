@@ -88,7 +88,7 @@ int		process_line(char **grid, char *line, int i);
 char	**map2grid(char *filename, int lines_num);
 char	**init_program(t_map *map);
 int		map_check(char **grid, t_map *map);
-int		display_map(char **grid, t_map *map);
+int		display_map(t_map *map);
 int		free_vars(t_map *map);
 void	put_images(t_map *map, int i, int j);
 void	put_images_while(t_map *map);

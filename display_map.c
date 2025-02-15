@@ -82,7 +82,7 @@ int	key_handler(int keycode, t_map *map)
 	return (TRUE);
 }
 
-int	display_map(char **grid, t_map *map)
+int	display_map(t_map *map)
 {
 	map->mlx = mlx_init();
 	if (!map->mlx)
@@ -90,7 +90,7 @@ int	display_map(char **grid, t_map *map)
 	map->win = mlx_new_window(map->mlx, map->width * T,
 			map->height * T, "game");
 	if (!map->win)
-		return (free(map->mlx), free_grid(grid, map->height - 1), FALSE);
+		return (free(map->mlx), FALSE);
 	map->collected = 0;
 	init_images(map);
 	mlx_hook(map->win, 2, 1L << 0, key_handler, map);
