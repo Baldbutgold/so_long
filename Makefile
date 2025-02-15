@@ -22,8 +22,8 @@ MINILIB_DIR = /usr/include/minilibx-linux
 
 #--------------------- RULES --------------------#
 
-all:
-		cc $(CFLAGS) $(SRCS) $(LIBFT) $(MLX_FLAGS) -o so_long
+all: $(LIBFT)
+		cc $(CFLAGS) $(SRCS) $(MLX_FLAGS) $(LIBFT) -o so_long
 
 $(LIBFT):
 		@cd libft && make

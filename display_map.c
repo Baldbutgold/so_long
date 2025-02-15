@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft/libft.h"
 
 void	init_images(t_map *map)
 {
