@@ -109,7 +109,8 @@ char	**init_program(t_map *map)
 		return (ft_printf("%s%s", ERROR, SHORT), NULL);
 	grid = map2grid(map->filename, map->height);
 	if (!grid)
-		return (free_grid(grid, map->height - 1), ft_printf("%s%s", ERROR, FAIL), NULL);
+		return (free_grid(grid, map->height - 1),
+			ft_printf("%s%s", ERROR, FAIL), NULL);
 	if (!map_check(grid, map))
 		return (free_grid(grid, map->height - 1), NULL);
 	return (grid);
