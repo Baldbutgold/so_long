@@ -1,31 +1,42 @@
 #------------------ Srcs & Objs -------------------#
 
-SERVER_SRC = parser.c
+SRCS = parser.c map_check.c utils.c display_map.c so_long.c
+
+MLX_FLAGS = -L$(MINILIB_DIR) -lmlx -lXext -lX11 -lm
+
+
+#----------------- Constant namings ---------------------#
 
 CC = cc
 RM = rm -f
-#CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
-INCLUDES = -I/usr/include -Imlx
+#------------------ LIBFT ------------------#
 
-MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+#------------------ MINILIB ------------------#
+
+MINILIB_DIR = /usr/include/minilibx-linux
 
 #--------------------- RULES --------------------#
 
-# all: 
-# 	cc $(CFLAGS) parser.c libft.a -o parser
-
 all:
-	cc $(CFLAGS) utils.c so_long.c parser.c map_check.c display_map.c libft.a libmlx.a -Lmlx -L/usr/lib/X11 -lXext -lX11 -o so_long -g3
-# all: so_long.c map_check.c parser.c
-# 	cc parser.c so_long.c map_check.c libft.a -o so_long
+		cc $(CFLAGS) $(SRCS) $(LIBFT) $(MLX_FLAGS) -o so_long
 
-mlx: test_window.c
-	cc test_window.c libmlx.a -Lmlx -L/usr/lib/X11 -lXext -lX11 -o ./test_window
+$(LIBFT):
+		@cd libft && make
 
-re: retest_window.c
-	cc retest_window.c libmlx.a -Lmlx -L/usr/lib/X11 -lXext -lX11 -o ./retest_window
-# $(NAME): $(OBJS)
-# 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
-# .c.o:
-# 	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
+clean:
+		$(RM) #remove object files 
+		@cd $(LIBFT_DIR) && make clean
+
+
+fclean : clean
+		#$(RM) $(SERVER_NAME) $(CLIENT_NAME)
+		@cd $(LIBFT_DIR) && make fclean
+
+re: fclean all
+
+.PHONY: all clean fclean re

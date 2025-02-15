@@ -13,12 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-/*# include "/usr/include/minilibx-linux/mlx.h"*/
-
-/*w : 119*/
-/*a : 97*/
-/*s : 115*/
-/*d : 100*/
+# include "/usr/include/minilibx-linux/mlx.h"
 
 /*0 for an empty space,*/
 /*1 for a wall,*/
@@ -26,7 +21,8 @@
 /*E for a map exit,*/
 /*P for the player’s starting position.*/
 
-# include "mlx/mlx.h"
+/*# include "mlx/mlx.h"*/
+
 # include <stdlib.h>
 # include <fcntl.h>
 # include "libft/libft.h"
@@ -44,7 +40,7 @@
 # define FAIL "Malloc Failed Try again\n"
 # define SHORT "Map is too short\n"
 # define FORMAT "wrong format, try: ./so_long filename\n"
-# define INV_CHAR "Invalid characters, try only 01EPC\n"
+# define INV_CHAR "Invalid characters, only 01EPC\n"
 # define BORDERS "The Borders are not enclosed\n"
 # define E_ERROR "Exit error\n"
 # define P_ERROR "Player error\n"
@@ -81,7 +77,7 @@ typedef struct s_map
 	int		collected;
 	int		found_exit;
 	int		fd;
-	void		*imgs[5];
+	void	*imgs[5];
 	void	*mlx;
 	void	*win;
 }	t_map;
@@ -95,7 +91,7 @@ char	**map2grid(char *filename, int lines_num);
 char	**init_program(t_map *map);
 int		map_check(char **grid, t_map *map);
 int		display_map(char **grid, t_map *map);
-int	free_vars(t_map *map);
+int		free_vars(t_map *map);
 void	put_images(t_map *map, int i, int j);
 void	put_images_while(t_map *map);
 

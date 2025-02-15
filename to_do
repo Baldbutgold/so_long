@@ -2,4 +2,8 @@ add event listener to close the images
 make sure the memory is properly managed
 check the leaks if there are any
 make sure that the close button actually works
+make file
+check moves
+must have executable ./so_long
+no relinking
 
