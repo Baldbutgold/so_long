@@ -16,7 +16,7 @@ CFLAGS		= -Wall -Wextra -Werror
 all:		$(NAME)
 
 $(NAME):	${OBJS}
-			${AR} ${NAME} ${OBJS}
+			@${AR} ${NAME} ${OBJS}
 
 clean:
 			@${RM} ${OBJS}

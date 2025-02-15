@@ -8,6 +8,7 @@ OBJS = $(SRCS:.c=.o)
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
+LIB_INC = -Ilibft
 
 #------------------ Library Paths ------------------#
 
@@ -24,7 +25,7 @@ NAME = so_long
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-		$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
+		$(CC) $(CFLAGS) $(LIB_INC) $(OBJS) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 		@cd libft && make
