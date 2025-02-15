@@ -1,9 +1,7 @@
 #------------------ Srcs & Objs -------------------#
 
-SRCS = parser.c map_check.c display_map.c so_long.c
-
-MLX_FLAGS = -L$(MINILIB_DIR) -lmlx -lXext -lX11 -lm
-
+SRCS = parser.c check_map.c display_map.c so_long.c
+OBJS = $(SRCS:.c=.o)
 
 #----------------- Constant namings ---------------------#
 
@@ -11,30 +9,36 @@ CC = cc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
-#------------------ LIBFT ------------------#
+#------------------ Library Paths ------------------#
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-#------------------ MINILIB ------------------#
-
 MINILIB_DIR = /usr/include/minilibx-linux
+MLX_FLAGS = -L$(MINILIB_DIR) -lmlx -lXext -lX11 -lm
 
 #--------------------- RULES --------------------#
 
-all: $(LIBFT)
-		cc $(CFLAGS) $(SRCS) $(MLX_FLAGS) $(LIBFT) -o so_long
+NAME = so_long
+
+all: $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT)
+		$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
 		@cd libft && make
 
+%.o: %.c
+		$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-		$(RM) #remove object files 
+		$(RM) $(OBJS)
 		@cd $(LIBFT_DIR) && make clean
 
 
 fclean : clean
-		#$(RM) $(SERVER_NAME) $(CLIENT_NAME)
+		$(RM) $(NAME)
 		@cd $(LIBFT_DIR) && make fclean
 
 re: fclean all

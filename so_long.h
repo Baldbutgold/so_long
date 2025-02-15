@@ -13,7 +13,6 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/usr/include/minilibx-linux/mlx.h"
 
 /*0 for an empty space,*/
 /*1 for a wall,*/
@@ -21,8 +20,7 @@
 /*E for a map exit,*/
 /*P for the player’s starting position.*/
 
-/*# include "mlx/mlx.h"*/
-
+# include "/usr/include/minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include "libft/libft.h"
