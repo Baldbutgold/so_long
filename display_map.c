@@ -12,6 +12,21 @@
 
 #include "so_long.h"
 
+int	free_vars(t_map *map)
+{
+	free_grid(map->grid, map->height -1);
+	mlx_destroy_image(map->mlx, map->imgs[P]);
+	mlx_destroy_image(map->mlx, map->imgs[I]);
+	mlx_destroy_image(map->mlx, map->imgs[E]);
+	mlx_destroy_image(map->mlx, map->imgs[W]);
+	mlx_destroy_image(map->mlx, map->imgs[F]);
+	mlx_destroy_window(map->mlx, map->win);
+	mlx_destroy_display(map->mlx);
+	free(map->mlx);
+	exit(0);
+	return (TRUE);
+}
+
 void	init_images(t_map *map)
 {
 	int	width;

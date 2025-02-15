@@ -13,6 +13,41 @@
 #include "so_long.h"
 #include "libft/libft.h"
 
+void	put_images(t_map *map, int i, int j)
+{
+	if (map->grid[i][j] == '0')
+		mlx_put_image_to_window(map->mlx, map->win,
+			map->imgs[F], j * T, i * T);
+	if (map->grid[i][j] == '1')
+		mlx_put_image_to_window(map->mlx, map->win,
+			map->imgs[W], j * T, i * T);
+	if (map->grid[i][j] == 'C')
+		mlx_put_image_to_window(map->mlx, map->win,
+			map->imgs[I], j * T, i * T);
+}
+
+void	put_images_while(t_map *map)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	while (map->grid[i])
+	{
+		j = 0;
+		while (map->grid[i][j])
+		{
+			put_images(map, i, j);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(map->mlx, map->win,
+		map->imgs[E], map->exit_y * T, map->exit_x * T);
+	mlx_put_image_to_window(map->mlx, map->win,
+		map->imgs[P], map->player_y * T, map->player_x * T);
+}
+
 int	main(int ac, char **av)
 {
 	t_map	map;

@@ -38,10 +38,6 @@ void	put_images(t_map *map, int i, int j)
 	if (map->grid[i][j] == 'C')
 		mlx_put_image_to_window(map->mlx, map->win,
 			map->imgs[I], j * T, i * T);
-	mlx_put_image_to_window(map->mlx, map->win,
-		map->imgs[E], map->exit_y * T, map->exit_x * T);
-	mlx_put_image_to_window(map->mlx, map->win,
-		map->imgs[P], map->player_y * T, map->player_x * T);
 }
 
 void	put_images_while(t_map *map)
@@ -60,4 +56,8 @@ void	put_images_while(t_map *map)
 		}
 		i++;
 	}
+	mlx_put_image_to_window(map->mlx, map->win,
+		map->imgs[E], map->exit_y * T, map->exit_x * T);
+	mlx_put_image_to_window(map->mlx, map->win,
+		map->imgs[P], map->player_y * T, map->player_x * T);
 }

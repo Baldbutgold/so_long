@@ -1,6 +1,6 @@
 #------------------ Srcs & Objs -------------------#
 
-SRCS = parser.c map_check.c utils.c display_map.c so_long.c
+SRCS = parser.c map_check.c display_map.c so_long.c
 
 MLX_FLAGS = -L$(MINILIB_DIR) -lmlx -lXext -lX11 -lm
 
