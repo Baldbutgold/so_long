@@ -89,11 +89,18 @@ void	update_pos(t_map *map, int x, int y)
 	put_images_while(map);
 }
 
-int	key_closer(int keycode, t_map *map)
+int	free_vars(t_map *map)
 {
-		mlx_destroy_window(map->mlx, map->win);
-		/*free all vars*/
-		exit(0);
+	free_grid(map->grid, map->height -1);
+	mlx_destroy_image(map->mlx, map->imgs[P]);
+	mlx_destroy_image(map->mlx, map->imgs[I]);
+	mlx_destroy_image(map->mlx, map->imgs[E]);
+	mlx_destroy_image(map->mlx, map->imgs[W]);
+	mlx_destroy_image(map->mlx, map->imgs[F]);
+	mlx_destroy_window(map->mlx, map->win);
+	mlx_destroy_display(map->mlx);
+	free(map->mlx);
+	exit(0);
 	return (TRUE);
 }
 
@@ -109,10 +116,7 @@ int	key_handler(int keycode, t_map *map)
 		update_pos(map, map->player_x, map->player_y + 1);
 	if (keycode == XK_Escape)
 	{
-		ft_printf("%p %p\n", map->mlx, map->win);
-		mlx_destroy_window(map->mlx, map->win);
-		/*free all vars*/
-		exit(0);
+		free_vars(map);
 	}
 	return (TRUE);
 }
@@ -128,7 +132,7 @@ int	display_map(char **grid, t_map *map)
 	map->collected = 0;
 	init_images(map);
 	mlx_hook(map->win, 2, 1L<<0, key_handler, map);
-	mlx_hook(map->win, 17, 1L<<5, key_closer, map);
+	mlx_hook(map->win, 17, 1L<<5, free_vars, map);
 	mlx_loop(map->mlx);
 	return (TRUE);
 }
